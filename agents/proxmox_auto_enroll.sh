@@ -1,10 +1,10 @@
 #!/bin/bash
-set -euo pipefail  # Exit on error, undefined vars, pipe failures
+set -eo pipefail  # Exit on error, pipe failures (removed -u as we handle unset vars explicitly)
 
 # Trap to catch errors only (not normal exits)
 trap 'echo "[ERROR] Script failed at line $LINENO with exit code $?"' ERR
 
-SCRIPT_VERSION="1.1.0"
+SCRIPT_VERSION="1.1.1"
 echo "[DEBUG] Script Version: $SCRIPT_VERSION ($(date +%Y-%m-%d\ %H:%M:%S))"
 
 # =============================================================================
