@@ -2,7 +2,11 @@ name: Code quality
 
 on:
   push:
+    paths-ignore:
+      - 'docker/**'
   pull_request:
+    paths-ignore:
+      - 'docker/**'
 
 jobs:
   check:

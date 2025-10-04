@@ -1,13 +1,14 @@
 name: Build and Push Docker Images
 
 on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
   pull_request:
     branches:
       - main
-      - dev
-  release:
-    types:
-      - published
   workflow_dispatch:
     inputs:
       push:
@@ -56,7 +57,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=edge,branch=main
 
       - name: Build and push ${{ matrix.image }} image
         uses: docker/build-push-action@v6
