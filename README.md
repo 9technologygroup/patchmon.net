@@ -125,22 +125,18 @@ After installation:
 - Database: PostgreSQL
 - System service: systemd-managed backend
 
+```mermaid
+flowchart LR
+    A[End Users / Browser<br>Admin UI / Frontend] -- HTTPS --> B[nginx<br>serve FE, proxy API]
+    B -- HTTP --> C["Backend<br>(Node/Express)<br>/api, auth, Prisma"]
+    C -- TCP --> D[PostgreSQL<br>Database]
+
+    E["Agents on your servers (Outbound Only)"] -- HTTPS --> F["Backend API<br>(/api/v1)"]
 ```
-+----------------------+    HTTPS    +--------------------+    HTTP    +------------------------+    TCP    +---------------+
-|  End Users (Browser) | --------->  |       nginx        | --------> | Backend (Node/Express) | ------> |  PostgreSQL   |
-|  Admin UI / Frontend |            | serve FE, proxy API|           |  /api, auth, Prisma    |         |   Database    |
-+----------------------+            +--------------------+           +------------------------+         +---------------+
-
-Agents (Outbound Only)
-+---------------------------+    HTTPS    +------------------------+
-|  Agents on your servers   | ----------> | Backend API (/api/v1)  |
-+---------------------------+             +------------------------+
-
 Operational
 - systemd manages backend service
 - certbot/nginx for TLS (public)
 - setup.sh bootstraps OS, app, DB, config
-```
 
 ## Support
 
